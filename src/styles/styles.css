@@ -667,7 +667,8 @@ section {
   z-index: -1;
 }
 .main-btn:hover {
-  transition: all 0.4s ease-out;
+  /* transition: all 0.4s ease-out; */
+  background-color:var(--color-secondary);
 }
 .main-btn:hover::before {
   width: 100%;

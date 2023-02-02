@@ -639,6 +639,7 @@ section {
     align-self: flex-start;
     align-items: center;
     overflow: hidden;
+    padding:1rem 2rem;
     .btn-text { padding: 0 2rem; }
     .btn-icon {
         background-color: var(--color-secondary);
@@ -658,7 +659,8 @@ section {
         z-index: -1;
     }
     &:hover {
-        transition: all .4s ease-out;
+        // transition: all .4s ease-out;
+        background-color:var(--color-secondary);
         &::before {
             width: 100%;
             height: 100%;
