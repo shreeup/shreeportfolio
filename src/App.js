@@ -550,7 +550,7 @@ function App() {
                                 <!-- <a href="#" target="_blank">
                                     <i className="fab fa-twitter"></i>
                                 </a> --> */}
-                                        <a href="https://www.github.com/shreeupadhyaya" target="_blank">
+                                        <a href="https://www.github.com/shreeup" target="_blank">
                                             <i className="fab fa-github"></i>
                                         </a>
                                         <a href="https://www.linkedin.com/in/shree-u-2056612a" target="_blank">
