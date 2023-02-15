@@ -67,8 +67,7 @@ function App() {
         <div className="main-content">
             <header className="container header active home" id="home">
                 <div className="header-content">
-                    <div className="left-header">
-                        {/* <div className="h-shape"></div> */}
+                    {/* <div className="left-header">
                         <div className="image">
                             <img src={require('./img/SHREE.jpg')} alt="" />
                         </div>
@@ -87,8 +86,23 @@ function App() {
                                 <span className="btn-icon"><i className="fas fa-download"></i></span>
                             </a>
                         </div>
+                    </div> */}
+                    <div>
+                    <h1 className="name">
+                            Hi, I'm <span>Shree</span></h1><br />
+                            <h2>Software Engineer</h2>
+                        <p>
+                            My objective is to work in a challenging and responsible position where my conceptual skill and professional background can be utilized for the progress of the organization and to update myself with the present technology to grow with the organization.
+                        </p>
                     </div>
-                </div>
+                    
+                        <div className="btn-con">
+                            <a href={Resume} download="Shree_Resume.pdf" className="main-btn" >
+                                <span className="btn-text">Download CV</span>
+                                <span className="btn-icon"><i className="fas fa-download"></i></span>
+                            </a>
+                        </div>
+                    </div>
             </header>
             <main>
                 <section className="container about" id="about">
