@@ -28,7 +28,7 @@ const Footer = () => {
       </div>
 
       <p className="text-white-500">
-        © 2024 Adrian Hajdin. All rights reserved.
+        © {new Date().getFullYear()} Shree. All rights reserved.
       </p>
     </footer>
   );

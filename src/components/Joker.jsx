@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Html, Text } from '@react-three/drei';
 import { Link, useNavigate } from 'react-router-dom';
+import { hover, motion } from 'framer-motion';
+import { Mail, User, Code } from 'lucide-react';
 
 export default function Joker() {
   const adjustJokerForScreenSize = () => {
@@ -23,6 +25,7 @@ export default function Joker() {
   const headRef = useRef();
   const mouthRef = useRef();
   const groupRef = useRef();
+  const icongroupRef = useRef();
   const ballRefs = [useRef(), useRef(), useRef()];
   const { viewport, camera } = useThree();
 
@@ -35,6 +38,18 @@ export default function Joker() {
     Math.min(viewport.width, viewport.height) * camera.zoom * 1
   );
   const [freeze, setIsFreeze] = useState(false);
+
+  const iconRoutes = [
+    { icon: Mail, route: '#contact', label: 'Contact' },
+    { icon: User, route: '#about', label: 'About' },
+    { icon: Code, route: '#projects', label: 'GitHub' },
+  ];
+
+  const handleIconClick = route => {
+    setIsFreeze(true); // Optionally freeze the animation during the navigation
+    window.location.hash = route; // Update the hash in the URL
+    setTimeout(() => setIsFreeze(false), 500); // Resume the animation
+  };
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime() * rotationSpeed;
@@ -62,14 +77,18 @@ export default function Joker() {
     }
 
     if (!freeze) {
-      ballRefs.forEach((ref, index) => {
-        if (ref.current) {
-          const phase = t + (index * 2 * Math.PI) / 3;
-          const radius = 1;
-          const height = 1.5;
-          ref.current.position.x = Math.sin(phase) * radius;
-          ref.current.position.y = Math.abs(Math.cos(phase)) * height + 2;
-          ref.current.position.z = 0.5;
+      iconRoutes.forEach((_, index) => {
+        const phase = t + (index * 2 * Math.PI) / 3;
+        const radius = 1.5;
+        const height = 2;
+
+        if (icongroupRef.current) {
+          const iconRef = icongroupRef.current.children[index];
+          if (iconRef) {
+            iconRef.position.x = Math.sin(phase) * radius;
+            iconRef.position.y = Math.abs(Math.cos(phase)) * height + 2;
+            iconRef.position.z = 0;
+          }
         }
       });
     }
@@ -150,6 +169,15 @@ export default function Joker() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  const glowVariants = {
+    initial: {
+      opacity: 0,
+    },
+    hover: {
+      opacity: 1,
+    },
+  };
+
   return (
     <group
       ref={groupRef}
@@ -212,42 +240,33 @@ export default function Joker() {
         <meshStandardMaterial color="green" />
       </mesh>
 
-      {ballRefs.map((ref, index) => (
-        <group key={index}>
-          <mesh
-            ref={ref}
-            position={[0, 2, 0]}
-            onClick={() => {
-              const routes = ['/contact', '/about', '/projects'];
-              navigate(routes[index]); // Navigate to the corresponding route
-            }}
-            onPointerMove={elem => {
-              elem.object.material.emissiveIntensity = 1;
-              setIsFreeze(true);
-              setTimeout(() => {
-                elem.object.material.emissiveIntensity = 0;
-                setIsFreeze(false);
-              }, 3000);
-            }}
-            pointerEvents="visible" // Ensures the text is clickable
-          >
-            <sphereGeometry args={[0.2, 16, 16]} />
-            <meshStandardMaterial
-              color={['red', 'green', 'blue'][index]}
-              emissive={['red', 'green', 'blue'][index]}
-            />{' '}
-            <Text
-              position={[0, 0.3, 0]}
-              fontSize={0.2}
-              color="yellow"
-              anchorX="center"
-              anchorY="middle"
+      <group ref={icongroupRef}>
+        {iconRoutes.map((item, index) => (
+          <Html center key={index}>
+            <motion.div
+              initial={{
+                rotate: 0,
+              }}
+              //animate={{ rotate: 360 }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+              style={{ cursor: 'pointer', display: 'inline-block' }}
+              onClick={() => handleIconClick(item.route)}
+              onPointerMove={elem => {
+                setIsFreeze(true);
+                setTimeout(() => {
+                  setIsFreeze(false);
+                }, 3000);
+              }}
+              className="group"
             >
-              {['Contact', 'About', 'Projects'][index]}
-            </Text>
-          </mesh>
-        </group>
-      ))}
+              <item.icon size={32} color={['red', 'green', 'blue'][index]} />
+              <span className="invisible group-hover:visible text-white">
+                {item.label}
+              </span>
+            </motion.div>
+          </Html>
+        ))}
+      </group>
     </group>
   );
 }

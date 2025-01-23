@@ -5,6 +5,7 @@ import { OrbitControls } from '@react-three/drei';
 // import Developer from '../components/Developer.jsx';
 // import CanvasLoader from '../components/Loading.jsx';
 import { workExperiences } from '../constants/index.js';
+import { Building2 } from 'lucide-react';
 
 const WorkExperience = () => {
   const [animationName, setAnimationName] = useState('idle');
@@ -37,16 +38,16 @@ const WorkExperience = () => {
               {workExperiences.map((item, index) => (
                 <div
                   key={index}
-                  onClick={() => setAnimationName(item.animation.toLowerCase())}
-                  onPointerOver={() =>
-                    setAnimationName(item.animation.toLowerCase())
-                  }
-                  onPointerOut={() => setAnimationName('idle')}
+                  //   onClick={() => setAnimationName(item.animation.toLowerCase())}
+                  //   onPointerOver={() =>
+                  //     setAnimationName(item.animation.toLowerCase())
+                  //   }
+                  //   onPointerOut={() => setAnimationName('idle')}
                   className="work-content_container group"
                 >
                   <div className="flex flex-col h-full justify-start items-center py-2">
-                    <div className="work-content_logo">
-                      <img className="w-full h-full" src={item.icon} alt="" />
+                    <div className="work-content_logo content-center">
+                      <Building2 className="m-auto" />
                     </div>
 
                     <div className="work-content_bar" />
@@ -57,9 +58,12 @@ const WorkExperience = () => {
                     <p className="text-sm mb-5">
                       {item.pos} -- <span>{item.duration}</span>
                     </p>
-                    <p className="group-hover:text-white transition-all ease-in-out duration-500">
-                      {item.title}
-                    </p>
+                    <ul className="group-hover:text-white transition-all ease-in-out duration-500">
+                      {item.bullets &&
+                        item.bullets.map(bulletpoint => {
+                          return <li className="list-disc">{bulletpoint}</li>;
+                        })}
+                    </ul>
                   </div>
                 </div>
               ))}

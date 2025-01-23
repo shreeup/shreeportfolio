@@ -1,3 +1,4 @@
+import { Building2 } from 'lucide-react';
 export const navLinks = [
   {
     id: 1,
@@ -284,32 +285,74 @@ export const calculateSizes = (isSmall, isMobile, isTablet) => {
 export const workExperiences = [
   {
     id: 1,
-    name: 'Framer',
-    pos: 'Lead Web Developer',
-    duration: '2022 - Present',
-    title:
-      'Framer serves as my go-to tool for creating interactive prototypes. I use it to bring designs to  life, allowing stakeholders to experience the user flow and interactions before development.',
-    icon: '/assets/framer.svg',
-    animation: 'victory',
+    name: 'Lucid Motors',
+    pos: ' Full Stack Software Engineer',
+    duration: 'Newark Oct 2023 - Present',
+    bullets: [
+      `Developed and maintained tools to visualize, annotate vehicle sensor data and RTI signals using PERN stack hosted on AWS
+EKS helping teams to deliver around 5k frames per month.`,
+      `
+Developed and maintained micro services written in Python, deployed and scheduled in Airow for data pipeline.
+ `,
+    ],
+    // icon: '/assets/framer.svg',
+    // animation: 'victory',
   },
   {
     id: 2,
-    name: 'Figma',
-    pos: 'Web Developer',
-    duration: '2020 - 2022',
-    title:
-      'Figma is my collaborative design platform of choice. I utilize it to work seamlessly with team members and clients, facilitating real-time feedback and design iterations. Its cloud-based.',
-    icon: '/assets/figma.svg',
-    animation: 'clapping',
+    name: 'McAfee',
+    pos: 'Software Development Engineer ',
+    duration: 'Remote Feb 2020 - May 2022',
+    bullets: [
+      `Refactored product purchase workow analysis monolith app using C#, .NET Core, JavaScript, and RDBMS, into microservices for frontend and backend, deployed as Docker images within AWS EC2 resulting in generating operational metrics, predicting and increasing sales and saving time by ~30%.`,
+      `Upgraded code to latest C# and .NET core, moved hosting from Windows Server to AWS EC2 Linux on Docker; performed SQL optimization and migrated database from on prem SQL to AWS RDS MySQL and improved consumer experience using tools like AWS Cloudwatch, Grafana and Python ML models`,
+      `Built proof-of-concepts (PoCs) in DynamoDB, PostgreSQL, AWS Aurora, EKS, and Docker, following microservices architecture, improving web application's response time to less than 1 sec. `,
+    ],
+    // icon: '/assets/framer.svg',
+    // animation: 'victory',
   },
   {
     id: 3,
-    name: 'Notion',
-    pos: 'Junior Web Developer',
-    duration: '2019 - 2020',
-    title:
-      'Notion helps me keep my projects organized. I use it for project management, task tracking, and as a central hub for documentation, ensuring that everything from design notes to.',
-    icon: '/assets/notion.svg',
-    animation: 'salute',
+    name: 'JLL Technologies',
+    pos: 'Software Engineer',
+    duration: 'India Jun 2019 - Feb 2020',
+    bullets: [
+      `Built a new responsive web app to help estimate the cost and ofce space requirements for an office rebuild
+using C#, .NET Core, JavaScript, React, EF Core, Material UI and SQL resulting in 5+ clients adopting the product.`,
+      `Analyzed application performance and fixed vulnerabilities using Sonarqube and Azure App Insights to improve
+application response time and fix security issues.`,
+      `Deployed app and database using Azure DevOps CI/CD, Node.js, Python, and EntityFramework Core. Helped
+streamline release process with automation where applicable.`,
+    ],
+
+    // icon: '/assets/framer.svg',
+    // animation: 'victory',
+  },
+  {
+    id: 4,
+    name: 'Paychex',
+    pos: 'Software Engineer',
+    duration: 'India Jul 2015 - May 2019',
+    bullets: [
+      `Implemented key features of cloud based time and attendance management web app and wrote unit tests using
+C#, .NET, ADO.NET, JavaScript, SQL, and MS Fakes, improving user retention and gaining test coverage of 80%+.`,
+      `Enhanced application architecture, troubleshooting and diagnosing high impact issues using C#, .NET, ADO.NET,
+Splunk, AppD, SQL Proler, and Shell scripts, reducing incidents and managing Azure saving ~4 hrs each release.
+`,
+      ` Migrated application to newer version of .NET framework and integrated system with external services such as
+Outlook and NetSuite using C# and RESTful APIs.`,
+    ],
+    // icon: '/assets/figma.svg',
+    // animation: 'clapping',
+  },
+  {
+    id: 5,
+    name: 'Myfriday Analytics',
+    pos: 'Software Engineer ',
+    duration: 'India Nov 2012 - Jun 2015',
+    bullets: [
+      'Key contributor for development of product on workforce domain from inception using to ensure high quality.',
+    ],
+    // animation: 'salute',
   },
 ];
