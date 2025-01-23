@@ -41,13 +41,14 @@ export default function Joker() {
 
     if (isWaving) {
       if (leftArmRef.current) {
-        leftArmRef.current.rotation.z = -Math.sin(t) * 0.5;
+        leftArmRef.current.rotation.z = Math.sin(t) * 5;
       }
     }
 
     if (!freeze) {
       if (leftArmRef.current && rightArmRef.current) {
-        leftArmRef.current.rotation.z = 0;
+        leftArmRef.current.rotation.z = Math.sin(t) * 5;
+        rightArmRef.current.rotation.z = -Math.sin(t) * 5;
         leftArmRef.current.rotation.x = Math.sin(t) * 0.5;
         rightArmRef.current.rotation.x = -Math.sin(t) * 0.5;
       }
@@ -64,7 +65,7 @@ export default function Joker() {
       ballRefs.forEach((ref, index) => {
         if (ref.current) {
           const phase = t + (index * 2 * Math.PI) / 3;
-          const radius = 0.5;
+          const radius = 1;
           const height = 1.5;
           ref.current.position.x = Math.sin(phase) * radius;
           ref.current.position.y = Math.abs(Math.cos(phase)) * height + 2;
@@ -80,7 +81,7 @@ export default function Joker() {
     }
 
     if (isNodding && headRef.current) {
-      const nodPhase = Math.sin(t * 5) * 0.1;
+      const nodPhase = Math.sin(t * 5) * 0.3;
       headRef.current.rotation.x = nodPhase;
     }
   });
@@ -182,8 +183,8 @@ export default function Joker() {
           <meshStandardMaterial color="red" />
         </mesh>
 
-        <mesh ref={mouthRef} position={[0, -0.3, 0.45]}>
-          <torusGeometry args={[0.2, 0.05, 16, 50, Math.PI]} />
+        <mesh ref={mouthRef} position={[0, 0, 0.45]}>
+          <torusGeometry args={[0.2, 0.05, 2, 50, -Math.PI]} />
           <meshStandardMaterial color="red" />
         </mesh>
       </mesh>
@@ -193,12 +194,20 @@ export default function Joker() {
         <meshStandardMaterial color="red" />
       </mesh>
 
-      <mesh ref={leftArmRef} position={[-0.7, 2, 0]}>
-        <cylinderGeometry args={[0.1, 0.1, 1]} />
+      <mesh
+        ref={leftArmRef}
+        position={[-0.7, 2, 0]}
+        rotation={[0, 0, -Math.PI / 2]}
+      >
+        <cylinderGeometry args={[0.1, 0.1, 1, 32]} />
         <meshStandardMaterial color="green" />
       </mesh>
 
-      <mesh ref={rightArmRef} position={[0.7, 2, 0]}>
+      <mesh
+        ref={rightArmRef}
+        position={[0.7, 2, 0]}
+        rotation={[0, 0, Math.PI / 2]}
+      >
         <cylinderGeometry args={[0.1, 0.1, 1]} />
         <meshStandardMaterial color="green" />
       </mesh>
@@ -222,13 +231,13 @@ export default function Joker() {
             }}
             pointerEvents="visible" // Ensures the text is clickable
           >
-            <sphereGeometry args={[0.1, 16, 16]} />
+            <sphereGeometry args={[0.2, 16, 16]} />
             <meshStandardMaterial
               color={['red', 'green', 'blue'][index]}
               emissive={['red', 'green', 'blue'][index]}
             />{' '}
             <Text
-              position={[0, 0.2, 0]}
+              position={[0, 0.3, 0]}
               fontSize={0.2}
               color="yellow"
               anchorX="center"

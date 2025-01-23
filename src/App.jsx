@@ -54,31 +54,57 @@
 //   );
 // }
 
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+// import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
-import { Footer, Navbar } from './components';
-import { About, Contact, Home, Projects } from './pages';
+// import { Footer, Navbar } from './components';
+// import { About, Contact, Home, Projects } from './pages';
+
+// const App = () => {
+//   return (
+//     <main className="max-w-7xl mx-auto relative">
+//       <Router>
+//         <Routes>
+//           <Route path="/" element={<Home />} />
+//           <Route
+//             path="/*"
+//             element={
+//               <>
+//                 <Routes>
+//                   <Route path="/about" element={<About />} />
+//                   <Route path="/projects" element={<Projects />} />
+//                   <Route path="/contact" element={<Contact />} />
+//                 </Routes>
+//                 <Footer />
+//               </>
+//             }
+//           />
+//         </Routes>
+//       </Router>
+//     </main>
+//   );
+// };
+
+// export default App;
+import About from './pages/About.jsx';
+import Footer from './components/Footer.jsx';
+import Navbar from './components/Navbar.jsx';
+import Contact from './pages/Contact.jsx';
+import Projects from './pages/Projects.jsx';
+import WorkExperience from './pages/Experience.jsx';
+import Home from './pages/Home.jsx';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 const App = () => {
   return (
-    <main className="bg-slate-300/20">
+    <main className="max-w-7xl mx-auto relative">
       <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/*"
-            element={
-              <>
-                <Routes>
-                  <Route path="/about" element={<About />} />
-                  <Route path="/projects" element={<Projects />} />
-                  <Route path="/contact" element={<Contact />} />
-                </Routes>
-                <Footer />
-              </>
-            }
-          />
-        </Routes>
+        <Navbar />
+        <Home />
+        <About />
+        <Projects />
+        <WorkExperience />
+        <Contact />
+        <Footer />
       </Router>
     </main>
   );
