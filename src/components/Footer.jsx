@@ -1,3 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+// import { Linke } from 'lucide-react';
+import { faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons';
 const Footer = () => {
   return (
     <footer className="c-space pt-7 pb-3 border-t border-black-300 flex justify-between items-center flex-wrap gap-5">
@@ -8,22 +12,25 @@ const Footer = () => {
       </div>
 
       <div className="flex gap-3">
-        <div className="social-icon">
-          <img src="/assets/github.svg" alt="github" className="w-1/2 h-1/2" />
+        <div className="social-icon bg-white">
+          <a href="https://github.com/shreeup" target="_blank">
+            {/* <img
+              src="/assets/github.svg"
+              alt="github"
+              className="w-full h-full"
+            /> */}
+            <FontAwesomeIcon icon={faGithub} size="lg" />
+          </a>
         </div>
-        <div className="social-icon">
-          <img
-            src="/assets/twitter.svg"
-            alt="twitter"
-            className="w-1/2 h-1/2"
-          />
-        </div>
-        <div className="social-icon">
-          <img
-            src="/assets/instagram.svg"
-            alt="instagram"
-            className="w-1/2 h-1/2"
-          />
+        <div className="social-icon bg-white" target="_blank">
+          <a href="https://www.linkedin.com/in/shreeup/" target="_blank">
+            {/* <img
+              src="/assets/linkedin.svg"
+              alt="linkedin"
+              className="w-full h-full"
+            /> */}
+            <FontAwesomeIcon icon={faLinkedinIn} size="lg" />
+          </a>
         </div>
       </div>
 

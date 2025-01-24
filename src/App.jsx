@@ -95,6 +95,15 @@ import Home from './pages/Home.jsx';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 const App = () => {
+  function NavigateToGitHub() {
+    window.open('https://www.google.com', '_blank', 'noopener,noreferrer');
+    return null;
+  }
+  function NavigateToLinkedIn() {
+    window.open('https://www.google.com', '_blank', 'noopener,noreferrer');
+    return null;
+  }
+
   return (
     <main className="max-w-7xl mx-auto relative">
       <Router>
@@ -105,6 +114,11 @@ const App = () => {
         <WorkExperience />
         <Contact />
         <Footer />
+        <Routes>
+          <Route path="/#projects" element={<Projects />} />
+          <Route path="/#linkedin" element={<NavigateToLinkedIn />} />
+          <Route path="/#github" element={<NavigateToGitHub />} />
+        </Routes>
       </Router>
     </main>
   );

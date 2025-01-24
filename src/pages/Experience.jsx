@@ -5,7 +5,9 @@ import { OrbitControls } from '@react-three/drei';
 // import Developer from '../components/Developer.jsx';
 // import CanvasLoader from '../components/Loading.jsx';
 import { workExperiences } from '../constants/index.js';
-import { Building2 } from 'lucide-react';
+// import { Building2 } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 const WorkExperience = () => {
   const [animationName, setAnimationName] = useState('idle');
@@ -47,7 +49,12 @@ const WorkExperience = () => {
                 >
                   <div className="flex flex-col h-full justify-start items-center py-2">
                     <div className="work-content_logo content-center">
-                      <Building2 className="m-auto" />
+                      {/* <Building2 className="m-auto" /> */}
+                      <FontAwesomeIcon
+                        icon={faBuilding}
+                        className="m-auto"
+                        size="lg"
+                      />
                     </div>
 
                     <div className="work-content_bar" />
@@ -58,10 +65,20 @@ const WorkExperience = () => {
                     <p className="text-sm mb-5">
                       {item.pos} -- <span>{item.duration}</span>
                     </p>
-                    <ul className="group-hover:text-white transition-all ease-in-out duration-500">
+                    <ul
+                      key={'workul_' + index}
+                      className="group-hover:text-white transition-all ease-in-out duration-500"
+                    >
                       {item.bullets &&
-                        item.bullets.map(bulletpoint => {
-                          return <li className="list-disc">{bulletpoint}</li>;
+                        item.bullets.map((bulletpoint, bulletindex) => {
+                          return (
+                            <li
+                              key={'workli_' + bulletindex}
+                              className="list-disc"
+                            >
+                              {bulletpoint}
+                            </li>
+                          );
                         })}
                     </ul>
                   </div>

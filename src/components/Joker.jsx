@@ -3,7 +3,17 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Html, Text } from '@react-three/drei';
 import { Link, useNavigate } from 'react-router-dom';
 import { hover, motion } from 'framer-motion';
-import { Mail, User, Code } from 'lucide-react';
+// import { Mail, User, Code } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinkedinIn, faGithub } from '@fortawesome/free-brands-svg-icons';
+
+import {
+  faUser,
+  faAddressBook,
+  faClipboardList,
+  faBuilding,
+  faFile,
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function Joker() {
   const adjustJokerForScreenSize = () => {
@@ -33,39 +43,117 @@ export default function Joker() {
   const [isSmiling, setIsSmiling] = useState(true);
   const [isBlinking, setIsBlinking] = useState(false);
   const [isNodding, setIsNodding] = useState(false);
-  const [rotationSpeed, setRotationSpeed] = useState(0.5);
+  const [rotationSpeed, setRotationSpeed] = useState(1.5);
   const [scaleFactor, setScaleFactor] = useState(
     Math.min(viewport.width, viewport.height) * camera.zoom * 1
   );
   const [freeze, setIsFreeze] = useState(false);
 
   const iconRoutes = [
-    { icon: Mail, route: '#contact', label: 'Contact' },
-    { icon: User, route: '#about', label: 'About' },
-    { icon: Code, route: '#projects', label: 'GitHub' },
+    {
+      icon: (
+        <FontAwesomeIcon
+          icon={faAddressBook}
+          style={{ color: 'voilet' }}
+          size="lg"
+        />
+      ),
+      route: '#contact',
+      label: 'Contact',
+      isExternal: false,
+    },
+    {
+      icon: (
+        <FontAwesomeIcon
+          icon={faUser}
+          style={{ color: 'indigo', margin: 'auto' }}
+          size="lg"
+        />
+      ),
+      route: '#about',
+      label: 'About',
+      isExternal: false,
+    },
+    {
+      icon: (
+        <FontAwesomeIcon
+          icon={faClipboardList}
+          style={{ color: 'blue' }}
+          size="lg"
+        />
+      ),
+      route: '#projects',
+      label: 'Projects',
+      isExternal: false,
+    },
+    {
+      icon: (
+        <FontAwesomeIcon icon={faGithub} style={{ color: 'green' }} size="lg" />
+      ),
+      route: 'https://github.com/shreeup',
+      label: 'GitHub',
+      isExternal: true,
+    },
+    {
+      icon: (
+        <FontAwesomeIcon
+          icon={faBuilding}
+          style={{ color: 'orange' }}
+          size="lg"
+        />
+      ),
+      route: '#work',
+      label: 'Work',
+      isExternal: false,
+    },
+    {
+      icon: (
+        <FontAwesomeIcon
+          icon={faLinkedinIn}
+          style={{ color: 'yellow' }}
+          size="lg"
+        />
+      ),
+      route: 'https://linkedin.com/in/shreeup',
+      label: 'LinkedIn',
+      isExternal: true,
+    },
+    {
+      icon: (
+        <FontAwesomeIcon icon={faFile} style={{ color: 'red' }} size="lg" />
+      ),
+      route: 'https://linkedin.com/in/shreeup',
+      label: 'Resume',
+      isExternal: true,
+    },
   ];
 
-  const handleIconClick = route => {
+  const handleIconClick = item => {
     setIsFreeze(true); // Optionally freeze the animation during the navigation
-    window.location.hash = route; // Update the hash in the URL
+    if (item.isExternal)
+      window.open(item.route, '_blank', 'noopener,noreferrer');
+    else window.location.hash = item.route; // Update the hash in the URL
     setTimeout(() => setIsFreeze(false), 500); // Resume the animation
   };
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime() * rotationSpeed;
-
-    if (isWaving) {
-      if (leftArmRef.current) {
-        leftArmRef.current.rotation.z = Math.sin(t) * 5;
-      }
-    }
+    const degToRad = degrees => (degrees * Math.PI) / 180;
 
     if (!freeze) {
       if (leftArmRef.current && rightArmRef.current) {
-        leftArmRef.current.rotation.z = Math.sin(t) * 5;
-        rightArmRef.current.rotation.z = -Math.sin(t) * 5;
-        leftArmRef.current.rotation.x = Math.sin(t) * 0.5;
-        rightArmRef.current.rotation.x = -Math.sin(t) * 0.5;
+        const leftArmAngle = degToRad(90) - Math.sin(t) * degToRad(15);
+        rightArmRef.current.rotation.z = leftArmAngle;
+
+        // Right arm motion between 150° and 210°
+        const rightArmAngle = degToRad(90) + Math.sin(t) * degToRad(15);
+        leftArmRef.current.rotation.z = rightArmAngle;
+      }
+    }
+    if (isWaving) {
+      if (leftArmRef.current) {
+        leftArmRef.current.rotation.z =
+          degToRad(30) + Math.sin(t) * degToRad(15); // Wave between 30° and 45°
       }
     }
 
@@ -78,7 +166,7 @@ export default function Joker() {
 
     if (!freeze) {
       iconRoutes.forEach((_, index) => {
-        const phase = t + (index * 2 * Math.PI) / 3;
+        const phase = t / 10 + (index * 2 * Math.PI) / 7;
         const radius = 1.5;
         const height = 2;
 
@@ -110,6 +198,7 @@ export default function Joker() {
     setIsFreeze(true);
     setTimeout(() => {
       setIsFreeze(false);
+      leftArmRef.current.rotation.z = Math.PI / 2;
       setIsWaving(false);
     }, 2000);
   };
@@ -169,15 +258,6 @@ export default function Joker() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const glowVariants = {
-    initial: {
-      opacity: 0,
-    },
-    hover: {
-      opacity: 1,
-    },
-  };
-
   return (
     <group
       ref={groupRef}
@@ -185,8 +265,8 @@ export default function Joker() {
       position={jokerPosition}
       onClick={handleNod}
     >
-      <mesh position={[0, 1, 0]}>
-        <cylinderGeometry args={[0.2, 0.2, 2]} />
+      <mesh position={[0, 1.4, 0]}>
+        <sphereGeometry args={[1, 16, 16]} />
         <meshStandardMaterial color="blue" />
       </mesh>
 
@@ -224,23 +304,23 @@ export default function Joker() {
 
       <mesh
         ref={leftArmRef}
-        position={[-0.7, 2, 0]}
-        rotation={[0, 0, -Math.PI / 2]}
+        position={[-1, 1.8, 0]} // Slightly further out on the x-axis
+        rotation={[0, 0, Math.PI / 2]} // Adjust the angle to stick out naturally
       >
-        <cylinderGeometry args={[0.1, 0.1, 1, 32]} />
+        <cylinderGeometry args={[0.1, 0.1, 2, 32]} />
         <meshStandardMaterial color="green" />
       </mesh>
 
       <mesh
         ref={rightArmRef}
-        position={[0.7, 2, 0]}
-        rotation={[0, 0, Math.PI / 2]}
+        position={[1, 1.8, 0]} // Slightly further out on the x-axis
+        rotation={[0, 0, -Math.PI / 2]} // Adjust the angle to stick out naturally
       >
-        <cylinderGeometry args={[0.1, 0.1, 1]} />
+        <cylinderGeometry args={[0.1, 0.1, 2]} />
         <meshStandardMaterial color="green" />
       </mesh>
 
-      <group ref={icongroupRef}>
+      <group ref={icongroupRef} position={[0, 0, 0]}>
         {iconRoutes.map((item, index) => (
           <Html center key={index}>
             <motion.div
@@ -248,9 +328,14 @@ export default function Joker() {
                 rotate: 0,
               }}
               //animate={{ rotate: 360 }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-              style={{ cursor: 'pointer', display: 'inline-block' }}
-              onClick={() => handleIconClick(item.route)}
+              transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+              style={{
+                cursor: 'pointer',
+                display: 'inline-block',
+              }}
+              onClick={() => {
+                handleIconClick(item);
+              }}
               onPointerMove={elem => {
                 setIsFreeze(true);
                 setTimeout(() => {
@@ -259,10 +344,10 @@ export default function Joker() {
               }}
               className="group"
             >
-              <item.icon size={32} color={['red', 'green', 'blue'][index]} />
+              {item.icon}
               <span className="invisible group-hover:visible text-white">
                 {item.label}
-              </span>
+              </span>{' '}
             </motion.div>
           </Html>
         ))}
