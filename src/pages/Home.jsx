@@ -1,12 +1,13 @@
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useEffect, useRef, useState } from 'react';
 
-// import sakura from '../assets/sakura.mp3';
+import bgmusic from '../../public/assets/bgmusic.mp3';
 import { HomeInfo, Loader } from '../components';
-// import { soundoff, soundon } from '../assets/icons';
 // import { Bird, Island, Plane, Sky } from '../models';
 import Joker from '../components/Joker';
-import JugglingBalls from '../components/JugglingBalls';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { faPhoneVolume, faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
   const [isPaused, setIsPaused] = useState(false);
@@ -17,31 +18,42 @@ const Home = () => {
     setIsPaused(prev => !prev);
   };
 
-  // Adjust juggling speed
-  const changeSpeed = increment => {
-    setSpeed(prevSpeed => Math.max(0.1, prevSpeed + increment)); // Minimum speed = 0.1
-  };
+  const audioRef = useRef(new Audio(bgmusic));
+  audioRef.current.volume = 0.4;
+  audioRef.current.loop = true;
 
-  // const audioRef = useRef(new Audio(sakura));
-  // audioRef.current.volume = 0.4;
-  // audioRef.current.loop = true;
-
-  const [currentStage, setCurrentStage] = useState(1);
-  const [isRotating, setIsRotating] = useState(false);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
 
-  // useEffect(() => {
-  //   if (isPlayingMusic) {
-  //     audioRef.current.play();
-  //   }
+  useEffect(() => {
+    if (isPlayingMusic) {
+      audioRef.current.play();
+    }
 
-  //   return () => {
-  //     audioRef.current.pause();
-  //   };
-  // }, [isPlayingMusic]);
+    return () => {
+      audioRef.current.pause();
+    };
+  }, [isPlayingMusic]);
 
   return (
     <section className="w-full h-screen relative" id="home">
+      <div className="absolute bottom-2 left-2">
+        {isPlayingMusic && (
+          <FontAwesomeIcon
+            icon={faPhoneVolume}
+            onClick={() => setIsPlayingMusic(!isPlayingMusic)}
+            size="lg"
+            style={{ color: 'yellow' }}
+          />
+        )}
+        {!isPlayingMusic && (
+          <FontAwesomeIcon
+            icon={faPhoneSlash}
+            onClick={() => setIsPlayingMusic(!isPlayingMusic)}
+            size="lg"
+            style={{ color: 'yellow' }}
+          />
+        )}
+      </div>
       <Canvas
         className={`w-full h-screen bg-transparent `}
         camera={{ near: 0.1, far: 1000 }}
@@ -65,16 +77,6 @@ const Home = () => {
           <Joker />
         </Suspense>
       </Canvas>
-
-      <div className="absolute bottom-2 left-2">
-        {/* <img
-          src={!isPlayingMusic ? soundoff : soundon}
-          alt="jukebox"
-          onClick={() => setIsPlayingMusic(!isPlayingMusic)}
-          className="w-10 h-10 cursor-pointer object-contain"
-        /> */}
-        Sound
-      </div>
     </section>
   );
 };

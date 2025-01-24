@@ -21,6 +21,8 @@ const About = () => {
 
   const Model = () => {
     const gltf = useLoader(GLTFLoader, 'assets/avatar.glb');
+    gltf.scene.scale.set(2, 2, 2);
+    gltf.scene.position.set(0, -3, -1);
     return (
       <>
         <primitive object={gltf.scene} />
@@ -30,7 +32,7 @@ const About = () => {
 
   return (
     <section className="c-space my-20" id="about">
-      <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
+      <div className="grid xl:grid-cols-3 xl:grid-rows-5 md:grid-cols-2 grid-cols-1 gap-5 h-full">
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
             {/* <img
@@ -38,27 +40,26 @@ const About = () => {
               alt="grid-1"
               className="w-full sm:h-[276px] h-fit object-contain"
             /> */}
-            <Canvas>
+            <Canvas style={{ height: '50%' }}>
               <Suspense fallback={null}>
-                <directionalLight position={[2, 2, 2]} intensity={2} />
+                <directionalLight position={[4, 4, 4]} intensity={2} />
                 <ambientLight intensity={1} />
-                <pointLight position={[10, 5, 10]} intensity={2} />
-                <spotLight
+                {/* <pointLight position={[10, 5, 10]} intensity={2} /> */}
+                {/* <spotLight
                   position={[0, 50, 10]}
                   angle={0.15}
                   penumbra={1}
                   intensity={2}
-                />
-                <hemisphereLight
+                /> */}
+                {/* <hemisphereLight
                   skyColor="#b1e1ff"
                   groundColor="#000000"
                   intensity={1}
-                />
+                /> */}
                 <Model />
                 <OrbitControls />
               </Suspense>
             </Canvas>
-
             <div>
               <p className="grid-headtext">Hi, I’m Shree</p>
               <p className="grid-subtext">
@@ -75,7 +76,8 @@ const About = () => {
             <img
               src="assets/grid2.svg"
               alt="grid-2"
-              className="w-full sm:h-[276px] h-fit object-contain"
+              className="w-full sm:h-[276px] object-contain"
+              style={{ height: '50%' }}
             />
 
             <div>
@@ -88,9 +90,12 @@ const About = () => {
           </div>
         </div>
 
-        <div className="col-span-1 xl:row-span-4">
+        <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
-            <div className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
+            <div
+              className="rounded-3xl w-full sm:h-[326px] flex justify-center items-center"
+              style={{ height: '50%' }}
+            >
               <Globe
                 height={326}
                 width={326}
@@ -120,11 +125,23 @@ const About = () => {
                 worldwide.
               </p>
               <Button name="Contact Me" isBeam containerClass="w-full mt-10" />
+              <div className="space-y-2 mt-10">
+                {/* <p className="grid-subtext text-center">Contact me</p> */}
+                <div className="copy-container" onClick={handleCopy}>
+                  <img
+                    src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'}
+                    alt="copy"
+                  />
+                  <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">
+                    searchshr@gmail.com
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="xl:col-span-2 xl:row-span-3">
+        <div className="xl:col-span-2 xl:row-span-2">
           <div className="grid-container">
             <img
               src="assets/grid3.png"
@@ -145,11 +162,6 @@ const About = () => {
                 I’m currently working on Full Stack Development and looking to
                 collaborate on Fullstack Web2 and Web3 projects.
               </p>
-
-              <p className="grid-subtext">
-                Contributing to Open Source Projects has always been a goal to
-                me.
-              </p>
             </div>
           </div>
         </div>
@@ -157,23 +169,20 @@ const About = () => {
         <div className="xl:col-span-1 xl:row-span-2">
           <div className="grid-container">
             <img
-              src="assets/grid4.png"
+              src="assets/hourglass.png"
               alt="grid-4"
-              className="w-full md:h-[126px] sm:h-[276px] h-fit object-cover sm:object-top"
+              className="w-full md:h-[126px] sm:h-[276px] h-fit object-contain sm:object-top"
             />
 
-            <div className="space-y-2">
-              <p className="grid-subtext text-center">Contact me</p>
-              <div className="copy-container" onClick={handleCopy}>
-                <img
-                  src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'}
-                  alt="copy"
-                />
-                <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">
-                  searchshr@gmail.com
-                </p>
-              </div>
-            </div>
+            <p className="grid-subtext">
+              Contributing to Open Source Projects has always been a goal to me.
+            </p>
+            <p className="grid-subtext">
+              Attended few coding bootcamps/courses and completed few projects.
+            </p>
+            <p className="grid-subtext">
+              Attained Microsoft & AWS certifications
+            </p>
           </div>
         </div>
       </div>

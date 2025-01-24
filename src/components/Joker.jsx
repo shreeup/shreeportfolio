@@ -54,7 +54,7 @@ export default function Joker() {
       icon: (
         <FontAwesomeIcon
           icon={faAddressBook}
-          style={{ color: 'voilet' }}
+          style={{ color: '#7F00FF' }}
           size="lg"
         />
       ),
@@ -122,7 +122,7 @@ export default function Joker() {
       icon: (
         <FontAwesomeIcon icon={faFile} style={{ color: 'red' }} size="lg" />
       ),
-      route: 'https://linkedin.com/in/shreeup',
+      route: 'https://github.com/shreeup/AboutMe',
       label: 'Resume',
       isExternal: true,
     },
@@ -167,7 +167,7 @@ export default function Joker() {
     if (!freeze) {
       iconRoutes.forEach((_, index) => {
         const phase = t / 10 + (index * 2 * Math.PI) / 7;
-        const radius = 1.5;
+        const radius = 2;
         const height = 2;
 
         if (icongroupRef.current) {
@@ -320,7 +320,7 @@ export default function Joker() {
         <meshStandardMaterial color="green" />
       </mesh>
 
-      <group ref={icongroupRef} position={[0, 0, 0]}>
+      <group ref={icongroupRef} position={[0.3, 0, 0]}>
         {iconRoutes.map((item, index) => (
           <Html center key={index}>
             <motion.div

@@ -48,11 +48,11 @@ const WorkExperience = () => {
                   className="work-content_container group"
                 >
                   <div className="flex flex-col h-full justify-start items-center py-2">
-                    <div className="work-content_logo content-center">
+                    <div className="work-content_logo content-center m-auto">
                       {/* <Building2 className="m-auto" /> */}
                       <FontAwesomeIcon
                         icon={faBuilding}
-                        className="m-auto"
+                        className="w-full"
                         size="lg"
                       />
                     </div>
