@@ -100,7 +100,7 @@ export const myProjects = [
     desc: 'Chrome Extension that helps to improve productivity.',
     subdesc:
       'Built as a chrome extension with Vite + react in a turborepo setting .',
-    href: '#',
+    href: 'https://github.com/shreeup/productivitydashextn',
     texture: '/textures/project/project1.mp4',
     logo: '/assets/project-logo1.png',
     logoStyle: {
